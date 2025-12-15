@@ -201,6 +201,23 @@ fun MainDishSection(){
                 .padding(16.dp)
                 .fillMaxWidth()
                 .selectableGroup()
-        ) { }
+        ) {
+            Text("メインを選択", style = MaterialTheme.typography.titleLarge)
+            RadioButtonWithText(
+                text = "ハンバーガー", selected = selectedDish == "ハンバーガー"
+            ) { selectedDish = "ハンバーガー"}
+            RadioButtonWithText(
+                text = "チーズバーガー",selected = selectedDish == "チーズバーガー"
+            ) {selectedDish = "チーズバーガー" }
+        }
     }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF000000
+)
+@Composable
+fun MainDishSectionPreview(){
+    MainDishSection()
 }
