@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -264,4 +265,46 @@ fun SideMenuSection(){
 @Composable
 fun SideMenuSectionPreview(){
     SideMenuSection()
+}
+
+@Composable
+fun SauceAmountSection(){
+    var sauceAmount by remember { mutableStateOf(0f) }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(BaseColor, shape = MaterialTheme.shapes.extraLarge)
+    ){
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                "ソースの量を調整できます",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Slider(
+                value = sauceAmount,
+                onValueChange = {sauceAmount = it},
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+            )
+            Text(
+                text = when{
+                    sauceAmount < 0.3 -> "少なめ"
+                    sauceAmount > 0.7 -> "多め"
+                    else -> "普通"
+                },
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF000000
+)
+@Composable
+fun SauceAmountSectionPreview(){
+    SauceAmountSection()
 }
