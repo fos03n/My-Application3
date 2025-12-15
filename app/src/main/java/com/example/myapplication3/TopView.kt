@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -220,4 +222,46 @@ fun MainDishSection(){
 @Composable
 fun MainDishSectionPreview(){
     MainDishSection()
+}
+
+@Composable
+fun SideMenuSection(){
+    var frenchFries by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(BaseColor, shape = MaterialTheme.shapes.extraLarge)
+    ){
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+        ) {
+            Text("サイドメニュー", style = MaterialTheme.typography.titleLarge)
+            Row(
+                modifier = Modifier.toggleable(
+                    value = frenchFries,
+                    onValueChange = {frenchFries = it}
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = frenchFries,
+                    onCheckedChange = null
+                )
+                Text(
+                    "フレンチフライ", style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF000000
+)
+@Composable
+fun SideMenuSectionPreview(){
+    SideMenuSection()
 }
