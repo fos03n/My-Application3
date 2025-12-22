@@ -10,6 +10,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,6 +23,8 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -57,6 +60,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication3.ui.theme.Pink80
 
 
 @Composable
@@ -373,4 +377,34 @@ fun DrinkSelectionSection(){
 @Composable
 fun DrinkSelectionSectionPreview(){
     DrinkSelectionSection()
+}
+
+@Composable
+fun OrderButtonSection(text: String, onClick: () -> Unit = {}){
+    val gradient = Brush.verticalGradient(
+        colors = listOf(Pink80, Orange400)
+    )
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Transparent
+        ),
+        contentPadding = PaddingValues(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(gradient, shape = MaterialTheme.shapes.extraLarge)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 40.sp
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun OrderButtonSectionPreview(){
+    OrderButtonSection("注文する")
 }
