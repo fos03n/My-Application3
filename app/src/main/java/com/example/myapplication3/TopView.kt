@@ -69,12 +69,16 @@ import com.example.myapplication3.ui.theme.Pink80
 
 @Composable
 fun TopView(onTapButton: () -> Unit) {
-    Column {
+    val verticalScrollState = rememberScrollState()
+    Column(
+        modifier = Modifier.verticalScroll(verticalScrollState)
+    ) {
         Box(contentAlignment = Alignment.TopCenter) {
             Image(
                 painter = painterResource(id = R.drawable.top),
                 contentDescription = "hamburger"
             )
+
             Text(
                 text = buildAnnotatedString {
                     withStyle(style = SpanStyle(color = Orange900)) {
