@@ -7,11 +7,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,6 +23,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -45,6 +48,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -407,4 +411,56 @@ fun OrderButtonSection(text: String, onClick: () -> Unit = {}){
 @Composable
 fun OrderButtonSectionPreview(){
     OrderButtonSection("注文する")
+}
+
+@Composable
+fun OrderView(
+    @DrawableRes imageRes: Int = R.drawable.classicbeef,
+    onTapButton: () -> Unit = {}
+) {
+    val scrollState = rememberScrollState()
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .verticalScroll(scrollState),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id =  R.drawable.order_screen),
+            contentDescription = "order screen",
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth
+        )
+        Box(
+            modifier = Modifier.padding(32.dp).fillMaxWidth(),
+            contentAlignment = Alignment.Center
+
+        ){
+            Image(
+               painter = painterResource(
+                   id = R.drawable.order_background),
+                contentDescription = "hamburger",
+            )
+            Image(
+                painter = painterResource(id = imageRes),
+                contentDescription = "hamburger",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+        }
+        MainDishSection()
+        SideMenuSection()
+        SauceAmountSection()
+        DrinkSelectionSection()
+        OrderButtonSection("注文する", onClick = onTapButton)
+    }
+}
+
+@Preview(showBackground = true,
+    widthDp = 400, heightDp = 1200,
+    backgroundColor = 0xFF000000)
+@Composable
+fun OrderViewPreview(){
+    OrderView()
 }
