@@ -464,3 +464,13 @@ fun OrderView(
 fun OrderViewPreview(){
     OrderView()
 }
+
+@Composable
+fun MainScreen(){
+    var isOrderView by remember { mutableStateOf(false)}
+    if (isOrderView) {
+        OrderView (onTapButton = { isOrderView = false })
+    } else {
+        TopView(onTapButton = {isOrderView = true})
+    }
+}
